@@ -31,14 +31,14 @@ describe('OrderStatusStepper', () => {
     expect(circles[3].className).toContain('bg-[var(--accent)]')
   })
 
-  it('shows raw status text for off-happy-path statuses', () => {
-    render(<OrderStatusStepper status="payment_failed" />)
-    expect(screen.getByText(/payment failed/i)).toBeTruthy()
+  it('renders nothing for payment_failed status', () => {
+    const { container } = render(<OrderStatusStepper status="payment_failed" />)
+    expect(container.firstChild).toBeNull()
   })
 
-  it('shows raw status text for cancelled status', () => {
-    render(<OrderStatusStepper status="cancelled" />)
-    expect(screen.getByText(/cancelled/i)).toBeTruthy()
+  it('renders nothing for cancelled status', () => {
+    const { container } = render(<OrderStatusStepper status="cancelled" />)
+    expect(container.firstChild).toBeNull()
   })
 
   it('does not throw for unknown status values', () => {

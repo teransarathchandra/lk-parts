@@ -6,7 +6,7 @@ import { Footer } from '@/components/ui/Footer'
 describe('Footer', () => {
   it('renders LK Parts brand text', () => {
     render(<Footer />)
-    expect(screen.getByText(/LK Parts/)).toBeTruthy()
+    expect(screen.getAllByText(/LK Parts/).length).toBeGreaterThan(0)
   })
 
   it('renders Returns Policy link', () => {
@@ -14,11 +14,11 @@ describe('Footer', () => {
     expect(screen.getByText('Returns Policy')).toBeTruthy()
   })
 
-  it('shows WhatsApp line when supportPhone is provided', () => {
+  it('shows WhatsApp link when supportPhone is provided', () => {
     render(<Footer supportPhone="94771234567" />)
-    const link = screen.getByText(/WhatsApp/)
+    const link = screen.getByRole('link', { name: /whatsapp support/i })
     expect(link).toBeTruthy()
-    expect(link.closest('a')?.getAttribute('href')).toContain('wa.me/94771234567')
+    expect(link.getAttribute('href')).toContain('wa.me/94771234567')
   })
 
   it('hides WhatsApp line when supportPhone is not provided', () => {

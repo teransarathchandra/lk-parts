@@ -25,7 +25,7 @@ describe('AddToCartButton', () => {
     resolve!(new Response('{}', { status: 200 }))
   })
 
-  it('shows Added ✓ on success and dispatches cart:updated', async () => {
+  it('shows Added to cart on success and dispatches cart:updated', async () => {
     const dispatched: string[] = []
     window.addEventListener('cart:updated', () => dispatched.push('cart:updated'))
 
@@ -36,7 +36,7 @@ describe('AddToCartButton', () => {
     render(<AddToCartButton productId="p1" productName="Oil Filter" />)
     fireEvent.click(screen.getByRole('button'))
 
-    expect(await screen.findByText('Added ✓')).toBeTruthy()
+    expect(await screen.findByText('Added to cart')).toBeTruthy()
     expect(dispatched).toContain('cart:updated')
   })
 
@@ -61,7 +61,7 @@ describe('AddToCartButton', () => {
     render(<AddToCartButton productId="p1" productName="Oil Filter" />)
     fireEvent.click(screen.getByRole('button'))
 
-    await screen.findByText('Added ✓')
+    await screen.findByText('Added to cart')
     // Wait for the 2s reset timeout
     await new Promise((r) => setTimeout(r, 2100))
     expect(screen.getByRole('button')).toHaveTextContent('Add to cart')

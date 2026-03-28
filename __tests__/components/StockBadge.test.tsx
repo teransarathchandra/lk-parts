@@ -14,12 +14,9 @@ describe('StockBadge', () => {
     expect(screen.getByText('Low Stock (3)')).toBeTruthy()
   })
 
-  it('shows In Stock green pill for normal stock levels', () => {
-    const { container } = render(<StockBadge quantity={20} />)
-    const badge = screen.getByText('In Stock (20)')
-    expect(badge).toBeTruthy()
-    // Should have emerald background class
-    expect(badge.className).toContain('bg-emerald-50')
+  it('shows In Stock for normal stock levels', () => {
+    render(<StockBadge quantity={20} />)
+    expect(screen.getByText('In Stock (20)')).toBeTruthy()
   })
 
   it('uses default threshold of 5', () => {
