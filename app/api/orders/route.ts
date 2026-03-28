@@ -19,18 +19,11 @@ const CreateOrderSchema = z.object({
   delivery_notes: z.string().optional(),
 })
 
-export async function GET(request: NextRequest) {
-  // Customer order history — requires customer_id from session (simplified)
-  const customerId = request.headers.get('x-customer-id')
-  if (!customerId) {
-    return Response.json({ error: 'Unauthorized' }, { status: 401 })
-  }
-  try {
-    const orders = await OrderService.listForCustomer(customerId)
-    return Response.json(orders)
-  } catch {
-    return Response.json({ error: 'Failed to load orders' }, { status: 500 })
-  }
+export async function GET() {
+  // Blocked until Phase 2: caller-controlled x-customer-id header is an IDOR.
+  // Order history listing requires a verified Supabase session (phone OTP auth).
+  // The Phase 1 UI does not use this endpoint — orders are accessed by ID only.
+  return Response.json({ error: 'Not implemented — requires Phase 2 auth' }, { status: 501 })
 }
 
 export async function POST(request: NextRequest) {
