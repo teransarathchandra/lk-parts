@@ -271,21 +271,35 @@ export class OrderService {
   }
 
   static async cancel(orderId: string): Promise<Order> {
+    // Verify order exists and get its items for inventory release
     const order = await this.getById(orderId)
     if (!order) throw new Error('Order not found')
 
     const cancellableStatuses = ['created', 'cod_confirmed', 'payment_initiated']
-    if (!cancellableStatuses.includes(order.status)) {
+
+    // Atomic status transition: only cancels if status is still cancellable.
+    // Prevents double-cancel + double inventory release under concurrent requests.
+    const { data: cancelled, error } = await supabaseAdmin
+      .from('orders')
+      .update({ status: 'cancelled' })
+      .eq('id', orderId)
+      .in('status', cancellableStatuses)
+      .select()
+      .single()
+
+    if (error || !cancelled) {
       throw Object.assign(new Error('Order cannot be cancelled at this stage'), { status: 422 })
     }
 
-    // Release inventory reservations
+    // Release inventory only after confirming this request won the atomic update
     if (order.items) {
       for (const item of order.items) {
-        await InventoryService.release(item.product_id, item.quantity).catch((e) => console.error('[lk-parts] inventory release failed:', e))
+        await InventoryService.release(item.product_id, item.quantity).catch((e) =>
+          console.error('[lk-parts] inventory release failed:', e)
+        )
       }
     }
 
-    return this.updateStatus(orderId, 'cancelled')
+    return cancelled as Order
   }
 }
