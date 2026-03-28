@@ -19,7 +19,7 @@ export function FitmentBadge({
     return (
       <div className={className}>
         <span
-          className="inline-flex items-center gap-1 rounded-[4px] px-2 py-1 text-[12px] font-semibold text-white"
+          className="inline-flex items-center gap-1 rounded-[4px] px-2 py-1 text-[13px] font-semibold text-white"
           style={{ backgroundColor: 'var(--fit-exact-bg)' }}
           aria-label={
             vehicleName
@@ -30,7 +30,7 @@ export function FitmentBadge({
           ✓ {vehicleName ? `Fits your ${vehicleName}` : 'Exact Fit'}
         </span>
         {showGuarantee && (
-          <p className="mt-2 rounded-[4px] border border-[#065F46] bg-emerald-50 px-3 py-2 text-[13px] text-[#065F46]">
+          <p className="mt-2 rounded-[4px] border border-[var(--fit-exact-bg)] bg-emerald-50 px-3 py-2 text-[13px] text-[var(--fit-exact-bg)]">
             🛡 Wrong part? Free return within 7 days — guaranteed.
           </p>
         )}
@@ -41,7 +41,7 @@ export function FitmentBadge({
   if (fitmentType === 'compatible') {
     return (
       <span
-        className={`inline-flex items-center gap-1 rounded-[4px] px-2 py-1 text-[12px] font-semibold text-white ${className}`}
+        className={`inline-flex items-center gap-1 rounded-[4px] px-2 py-1 text-[13px] font-semibold text-white ${className}`}
         style={{ backgroundColor: 'var(--fit-compat-bg)' }}
       >
         ⚠ {vehicleName ? `May fit your ${vehicleName}` : 'Compatible'}

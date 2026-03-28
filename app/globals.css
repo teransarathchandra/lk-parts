@@ -13,6 +13,13 @@
   --fit-exact-bg: #065F46;
   --fit-compat-bg: #92400E;
   --fit-unknown: #6B7280;
+
+  /* Interactive states */
+  --accent-hover: #aa1b00;
+
+  /* Stock and brand colors */
+  --stock-in-color: #065F46;
+  --whatsapp-green: #25D366;
 }
 
 @theme inline {
@@ -26,6 +33,9 @@
   --color-fit-exact: var(--fit-exact-bg);
   --color-fit-compat: var(--fit-compat-bg);
   --color-fit-unknown: var(--fit-unknown);
+  --color-accent-hover: var(--accent-hover);
+  --color-stock-in: var(--stock-in-color);
+  --color-whatsapp: var(--whatsapp-green);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --radius-card: 8px;
@@ -62,4 +72,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 .skip-to-main:focus {
   left: 0;
+}
+
+/* Hide scrollbar while preserving scroll functionality */
+.scrollbar-none {
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
 }

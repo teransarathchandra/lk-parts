@@ -1,4 +1,5 @@
 import { Navbar } from '@/components/ui/Navbar'
+import { Footer } from '@/components/ui/Footer'
 import { CartClient } from '@/components/checkout/CartClient'
 
 export default function CartPage() {
@@ -16,6 +17,7 @@ export default function CartPage() {
           <CartClient />
         </div>
       </main>
+      <Footer supportPhone={process.env.NEXT_PUBLIC_SUPPORT_PHONE} />
     </>
   )
 }

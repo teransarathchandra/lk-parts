@@ -18,6 +18,8 @@ export function CartIcon() {
       } catch {}
     }
     loadCart()
+    window.addEventListener('cart:updated', loadCart)
+    return () => window.removeEventListener('cart:updated', loadCart)
   }, [])
 
   return (

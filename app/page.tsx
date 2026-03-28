@@ -1,6 +1,7 @@
 import { CatalogService } from '@/lib/services/CatalogService'
 import { VehicleSelector } from '@/components/catalog/VehicleSelector'
 import { Navbar } from '@/components/ui/Navbar'
+import { Footer } from '@/components/ui/Footer'
 import Link from 'next/link'
 
 export const revalidate = 3600
@@ -21,33 +22,33 @@ export default async function HomePage() {
     <>
       <Navbar />
       <main id="main-content" className="flex-1">
-        <div className="mx-auto max-w-2xl px-4 py-8">
-          {/* Hero */}
-          <section className="mb-8 text-center">
+        {/* Hero */}
+        <section className="bg-[#111111] px-4 py-10 text-white">
+          <div className="mx-auto max-w-2xl text-center">
             <h1
-              className="mb-2 text-[28px] font-bold text-[var(--text-primary)]"
-              style={{ letterSpacing: '-0.01em' }}
+              className="mb-3 text-[32px] font-bold leading-tight text-white sm:text-[40px]"
+              style={{ letterSpacing: '-0.02em' }}
             >
               Find parts that fit your exact vehicle.
             </h1>
-            <p className="text-[15px] text-[var(--text-secondary)]">
-              Fitment-verified parts for Sri Lanka vehicles. Honda, Yamaha, Toyota, Bajaj and more.
+            <p className="mb-8 text-[14px] text-white/70">
+              ✓ Fitment-checked parts available&nbsp;&nbsp;·&nbsp;&nbsp;✓ Sri Lanka delivery&nbsp;&nbsp;·&nbsp;&nbsp;✓ Free returns on exact fit
             </p>
-          </section>
 
-          {/* Vehicle selector card */}
-          <section
-            className="mb-6 rounded-[8px] border border-[var(--border)] bg-white p-5"
-            aria-labelledby="selector-heading"
-          >
-            <h2
-              id="selector-heading"
-              className="mb-4 text-[15px] font-semibold text-[var(--text-primary)]"
+            {/* Vehicle selector card */}
+            <div
+              className="rounded-[8px] border-l-4 bg-white p-5 text-left"
+              style={{ borderLeftColor: 'var(--accent)' }}
             >
-              Select your vehicle
-            </h2>
-            <VehicleSelector vehicles={vehicles} showCta />
-          </section>
+              <p className="mb-4 text-[15px] font-semibold text-[var(--text-primary)]">
+                Find parts for your vehicle
+              </p>
+              <VehicleSelector vehicles={vehicles} showCta />
+            </div>
+          </div>
+        </section>
+
+        <div className="mx-auto max-w-2xl px-4 py-8">
 
           {/* Search fallback */}
           <section className="mb-8 text-center">
@@ -60,12 +61,12 @@ export default async function HomePage() {
                   name="q"
                   type="search"
                   placeholder="e.g. 15400-PLM-A02 or oil filter"
-                  className="min-h-[44px] flex-1 rounded-[2px] border border-[var(--border)] px-3 py-2 text-[15px] focus:border-[var(--accent)] focus:outline-none"
+                  className="min-h-[48px] flex-1 rounded-[2px] border border-[var(--text-secondary)] px-3 py-2 text-[15px] focus:border-[var(--accent)] focus:outline-none"
                   aria-label="Search by part name or number"
                 />
                 <button
                   type="submit"
-                  className="min-h-[44px] rounded-[4px] bg-[var(--accent)] px-5 text-[15px] font-medium text-white hover:bg-[#aa1b00]"
+                  className="min-h-[48px] rounded-[4px] bg-[var(--accent)] px-5 text-[15px] font-medium text-white hover:bg-[var(--accent-hover)]"
                 >
                   Search
                 </button>
@@ -95,6 +96,7 @@ export default async function HomePage() {
           </section>
         </div>
       </main>
+      <Footer supportPhone={process.env.NEXT_PUBLIC_SUPPORT_PHONE} />
     </>
   )
 }

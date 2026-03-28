@@ -1,4 +1,5 @@
 import { Navbar } from '@/components/ui/Navbar'
+import { Footer } from '@/components/ui/Footer'
 import { OrderStatusClient } from '@/components/checkout/OrderStatusClient'
 
 interface PageProps {
@@ -16,6 +17,7 @@ export default async function OrderStatusPage({ params }: PageProps) {
           <OrderStatusClient orderId={id} />
         </div>
       </main>
+      <Footer supportPhone={process.env.NEXT_PUBLIC_SUPPORT_PHONE} />
     </>
   )
 }

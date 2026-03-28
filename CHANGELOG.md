@@ -2,6 +2,32 @@
 
 All notable changes to lk-parts will be documented in this file.
 
+## [0.1.0.1] - 2026-03-28
+
+### Added
+- **Footer component**: `Footer.tsx` with LK Parts branding, Returns Policy link, and conditional WhatsApp contact — added to all public pages (home, search, shop-by-vehicle, cart, orders, parts catalog + PDP)
+- **TrustStrip component**: inline trust row (7-day return · Secure checkout · WhatsApp support) shown on PDP and cart page
+- **CheckoutSteps component**: extracted reusable step progress indicator from `CheckoutFlow.tsx`; supports completed (✓), active, and upcoming states with `aria-current="step"`
+- **OrderStatusStepper component**: 4-step visual stepper (Placed → Confirmed → Shipped → Delivered) mapped from order status enum; off-happy-path statuses (cancelled, payment_failed, etc.) gracefully degraded
+- **Cart badge live updates**: `cart:updated` custom event wired — `AddToCartButton` dispatches on success, `CartClient.removeItem` dispatches after DELETE, `CartIcon` listens and refreshes count
+- **Component test suite**: 86 tests total (up from 50) — new test files for `AddToCartButton`, `CartIcon`, `OrderStatusStepper`, `CheckoutSteps`, `StockBadge`, `TrustStrip`, `Footer`
+- **Test infrastructure**: `vitest.setup.ts` + `setupFiles` config wiring for `@testing-library/jest-dom` matchers
+
+### Changed
+- **PDP actions**: replaced broken server-component `<button onClick={undefined}>` with `<AddToCartButton>` client component; WhatsApp button now solid green (`--whatsapp-green`) with `encodeURIComponent` on message text; actions stacked vertically at full width
+- **PDP fitment section**: compatible badge now shows independently; exact-fit block shows vehicle warning ("Select your vehicle first...")
+- **ProductCard**: fitment badge moved above price; `p-3` → `p-4`; product name gets `line-clamp-2`
+- **Navbar**: removed `vehicleNickname` prop and garage indicator (descoped to Phase 2); logo gains accent dot; simplified to logo + search + cart
+- **StockBadge**: In Stock state now renders as green pill (`bg-emerald-50`, `--stock-in-color`) instead of plain gray text
+- **Cart skeleton loaders**: content-shaped skeletons (64px square + 3 lines) replacing single-block rectangles
+- **CSS design tokens**: added `--accent-hover`, `--stock-in-color`, `--whatsapp-green` to `:root`; all `#aa1b00` hardcoded values replaced with `var(--accent-hover)`
+- **WhatsApp links**: fixed broken `?? ''` fallback across `SearchResults.tsx`, PDP, and new components — all guarded with boolean check + `encodeURIComponent`
+- **Filter chips**: added 14px SVG category icons; `scrollbar-none` on chip nav
+
+### Fixed
+- `CartIcon` badge was stale after add-to-cart and remove-from-cart actions — now refreshes via `cart:updated` event listener
+- WhatsApp links generated broken `wa.me/` URLs when `NEXT_PUBLIC_SUPPORT_PHONE` was unset
+
 ## [0.1.0.0] - 2026-03-28
 
 ### Added

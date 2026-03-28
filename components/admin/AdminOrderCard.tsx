@@ -106,7 +106,7 @@ export function AdminOrderCard({ order }: AdminOrderCardProps) {
             className={`min-h-[44px] flex-1 rounded-[4px] px-3 py-2 text-[13px] font-medium text-white transition-colors disabled:cursor-not-allowed ${
               confirmState === 'done'
                 ? 'bg-[var(--fit-exact-bg)]'
-                : 'bg-[var(--accent)] hover:bg-[#aa1b00]'
+                : 'bg-[var(--accent)] hover:bg-[var(--accent-hover)]'
             }`}
           >
             {confirmState === 'confirming'

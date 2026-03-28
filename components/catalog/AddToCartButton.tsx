@@ -35,6 +35,7 @@ export function AddToCartButton({
       }
 
       setState('added')
+      window.dispatchEvent(new CustomEvent('cart:updated'))
       setTimeout(() => setState('idle'), 2000)
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Failed to add'
@@ -60,7 +61,7 @@ export function AddToCartButton({
         className={`min-h-[44px] w-full rounded-[4px] px-4 py-2.5 text-[15px] font-medium text-white transition-colors disabled:cursor-not-allowed ${
           isAdded
             ? 'bg-[var(--fit-exact-bg)]'
-            : 'bg-[var(--accent)] hover:bg-[#aa1b00] active:bg-[#891600]'
+            : 'bg-[var(--accent)] hover:bg-[var(--accent-hover)] active:bg-[#891600]'
         } ${className}`}
         aria-label={`Add ${productName} to cart`}
       >

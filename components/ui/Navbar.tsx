@@ -1,20 +1,21 @@
 import Link from 'next/link'
 import { CartIcon } from './CartIcon'
 
-interface NavbarProps {
-  vehicleNickname?: string | null
-}
-
-export function Navbar({ vehicleNickname }: NavbarProps) {
+export function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-[var(--border)] bg-white">
       <div className="mx-auto flex max-w-2xl items-center justify-between px-4 py-3">
         {/* Logo */}
         <Link
           href="/"
-          className="text-[18px] font-bold text-[var(--text-primary)]"
-          style={{ letterSpacing: '-0.01em' }}
+          className="flex items-center gap-1.5 text-[20px] font-bold text-[var(--text-primary)]"
+          style={{ letterSpacing: '-0.02em' }}
         >
+          <span
+            className="h-2 w-2 rounded-full"
+            style={{ backgroundColor: 'var(--accent)' }}
+            aria-hidden="true"
+          />
           LK Parts
         </Link>
 
@@ -30,24 +31,6 @@ export function Navbar({ vehicleNickname }: NavbarProps) {
               <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" strokeWidth="1.5" />
               <path d="M13 13l3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
             </svg>
-          </Link>
-
-          {/* Garage indicator */}
-          <Link
-            href="/shop-by-vehicle"
-            className="flex min-h-[44px] min-w-[44px] items-center justify-center"
-            aria-label={vehicleNickname ? `My Garage: ${vehicleNickname}` : 'My Garage'}
-          >
-            {vehicleNickname ? (
-              <span className="max-w-[100px] truncate text-[12px] font-medium text-[var(--fit-exact-bg)]">
-                {vehicleNickname}
-              </span>
-            ) : (
-              <span
-                className="h-2 w-2 rounded-full"
-                style={{ backgroundColor: 'var(--border)' }}
-              />
-            )}
           </Link>
 
           {/* Cart */}

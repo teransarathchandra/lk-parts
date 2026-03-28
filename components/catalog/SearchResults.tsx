@@ -31,15 +31,20 @@ export async function SearchResults({ query, vehicleId }: SearchResultsProps) {
           No results for "{query}".
         </p>
         <p className="text-[13px] text-[var(--text-secondary)]">
-          Try a different part number or{' '}
-          <a
-            href={`https://wa.me/${process.env.NEXT_PUBLIC_SUPPORT_PHONE ?? ''}?text=Hi, I'm looking for ${query}`}
-            className="text-[var(--accent)] hover:underline"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Ask via WhatsApp ↗
-          </a>
+          Try a different part number
+          {process.env.NEXT_PUBLIC_SUPPORT_PHONE && (
+            <>
+              {' or '}
+              <a
+                href={`https://wa.me/${process.env.NEXT_PUBLIC_SUPPORT_PHONE}?text=${encodeURIComponent(`Hi, I'm looking for ${query}`)}`}
+                className="text-[var(--accent)] hover:underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Ask via WhatsApp ↗
+              </a>
+            </>
+          )}
         </p>
       </div>
     )

@@ -1,4 +1,5 @@
 import { Navbar } from '@/components/ui/Navbar'
+import { Footer } from '@/components/ui/Footer'
 import { SearchResults } from '@/components/catalog/SearchResults'
 
 interface PageProps {
@@ -30,7 +31,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
               />
               <button
                 type="submit"
-                className="min-h-[44px] rounded-[4px] bg-[var(--accent)] px-5 text-[15px] font-medium text-white hover:bg-[#aa1b00]"
+                className="min-h-[44px] rounded-[4px] bg-[var(--accent)] px-5 text-[15px] font-medium text-white hover:bg-[var(--accent-hover)]"
               >
                 Search
               </button>
@@ -46,6 +47,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
           )}
         </div>
       </main>
+      <Footer supportPhone={process.env.NEXT_PUBLIC_SUPPORT_PHONE} />
     </>
   )
 }

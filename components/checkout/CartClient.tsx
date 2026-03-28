@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import type { Cart } from '@/types'
+import { TrustStrip } from '@/components/ui/TrustStrip'
 
 export function CartClient() {
   const [cart, setCart] = useState<Cart | null>(null)
@@ -28,13 +29,24 @@ export function CartClient() {
         items: (prev.items ?? []).filter((i) => i.product_id !== productId),
       }
     })
+    window.dispatchEvent(new CustomEvent('cart:updated'))
   }
 
   if (loading) {
     return (
       <div className="space-y-3" aria-busy="true">
         {[1, 2].map((i) => (
-          <div key={i} className="h-24 animate-pulse rounded-[8px] bg-[var(--bg-subtle)]" />
+          <div
+            key={i}
+            className="flex gap-3 rounded-[8px] border border-[var(--border)] bg-white p-4"
+          >
+            <div className="h-16 w-16 flex-none animate-pulse rounded-[4px] bg-[var(--bg-subtle)]" />
+            <div className="flex-1 space-y-2 pt-1">
+              <div className="h-3 w-full animate-pulse rounded-[2px] bg-[var(--bg-subtle)]" />
+              <div className="h-3 w-3/5 animate-pulse rounded-[2px] bg-[var(--bg-subtle)]" />
+              <div className="h-3 w-2/5 animate-pulse rounded-[2px] bg-[var(--bg-subtle)]" />
+            </div>
+          </div>
         ))}
       </div>
     )
@@ -48,9 +60,9 @@ export function CartClient() {
         <p className="mb-4 text-[15px] text-[var(--text-secondary)]">Your cart is empty.</p>
         <Link
           href="/"
-          className="rounded-[4px] bg-[var(--accent)] px-6 py-3 text-[15px] font-medium text-white hover:bg-[#aa1b00]"
+          className="rounded-[4px] bg-[var(--accent)] px-6 py-3 text-[15px] font-medium text-white hover:bg-[var(--accent-hover)]"
         >
-          Browse parts
+          Browse parts →
         </Link>
       </div>
     )
@@ -75,10 +87,10 @@ export function CartClient() {
           return (
             <div
               key={item.id}
-              className="flex gap-3 rounded-[8px] border border-[var(--border)] bg-white p-3"
+              className="flex gap-3 rounded-[8px] border border-[var(--border)] bg-white p-4"
             >
               {/* Product image */}
-              <div className="relative h-16 w-16 flex-none rounded-[4px] bg-[var(--bg-subtle)] overflow-hidden">
+              <div className="relative h-16 w-16 flex-none overflow-hidden rounded-[4px] bg-[var(--bg-subtle)]">
                 {images.length > 0 ? (
                   <Image
                     src={images[0]}
@@ -94,10 +106,10 @@ export function CartClient() {
                 )}
               </div>
 
-              <div className="flex-1 min-w-0">
+              <div className="min-w-0 flex-1">
                 <Link
                   href={`/parts/${product.slug}`}
-                  className="block text-[15px] font-medium text-[var(--text-primary)] hover:text-[var(--accent)] truncate"
+                  className="block truncate text-[15px] font-medium text-[var(--text-primary)] hover:text-[var(--accent)]"
                 >
                   {product.name}
                 </Link>
@@ -116,7 +128,7 @@ export function CartClient() {
                     </span>
                     <button
                       onClick={() => removeItem(item.product_id)}
-                      className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[13px] text-[var(--text-secondary)] hover:text-[var(--accent)]"
+                      className="flex min-h-[44px] min-w-[44px] items-center justify-center text-[13px] text-[var(--text-secondary)] hover:text-[var(--accent)]"
                       aria-label={`Remove ${product.name} from cart`}
                     >
                       ×
@@ -151,10 +163,14 @@ export function CartClient() {
 
         <Link
           href="/checkout"
-          className="mt-4 flex min-h-[44px] w-full items-center justify-center rounded-[4px] bg-[var(--accent)] px-4 py-3 text-[15px] font-medium text-white hover:bg-[#aa1b00]"
+          className="mt-4 flex min-h-[44px] w-full items-center justify-center rounded-[4px] bg-[var(--accent)] px-4 py-3 text-[15px] font-medium text-white hover:bg-[var(--accent-hover)]"
         >
           Proceed to checkout
         </Link>
+
+        <div className="mt-4">
+          <TrustStrip supportPhone={process.env.NEXT_PUBLIC_SUPPORT_PHONE} />
+        </div>
       </div>
     </div>
   )

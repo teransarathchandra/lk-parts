@@ -185,7 +185,7 @@ export function VehicleSelector({
         <button
           onClick={handleShowParts}
           disabled={!selectedVehicle}
-          className="min-h-[44px] w-full rounded-[4px] bg-[var(--accent)] px-6 py-3 text-[15px] font-medium text-white transition-colors hover:bg-[#aa1b00] disabled:cursor-not-allowed disabled:opacity-50"
+          className="min-h-[44px] w-full rounded-[4px] bg-[var(--accent)] px-6 py-3 text-[15px] font-medium text-white transition-colors hover:bg-[var(--accent-hover)] disabled:cursor-not-allowed disabled:opacity-50"
         >
           Show parts →
         </button>

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import type { Order } from '@/types'
+import { OrderStatusStepper } from '@/components/ui/OrderStatusStepper'
 
 const STATUS_LABELS: Record<string, string> = {
   created: 'Order placed',
@@ -116,7 +117,7 @@ export function OrderStatusClient({ orderId }: OrderStatusClientProps) {
           <button
             type="submit"
             disabled={verifying}
-            className="min-h-[44px] w-full rounded-[4px] bg-[var(--accent)] px-4 py-3 text-[15px] font-medium text-white hover:bg-[#aa1b00] disabled:opacity-60"
+            className="min-h-[44px] w-full rounded-[4px] bg-[var(--accent)] px-4 py-3 text-[15px] font-medium text-white hover:bg-[var(--accent-hover)] disabled:opacity-60"
           >
             {verifying ? 'Checking...' : 'View order'}
           </button>
@@ -141,11 +142,13 @@ export function OrderStatusClient({ orderId }: OrderStatusClientProps) {
       )}
 
       <h1
-        className="mb-1 text-[22px] font-semibold text-[var(--text-primary)]"
+        className="mb-4 text-[22px] font-semibold text-[var(--text-primary)]"
         style={{ letterSpacing: '-0.01em' }}
       >
         Order #{order.id.slice(0, 8).toUpperCase()}
       </h1>
+
+      <OrderStatusStepper status={order.status} />
 
       <p className="mb-5 text-[15px] text-[var(--text-secondary)]">
         Status:{' '}

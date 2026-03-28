@@ -1,5 +1,6 @@
 import { CatalogService } from '@/lib/services/CatalogService'
 import { Navbar } from '@/components/ui/Navbar'
+import { Footer } from '@/components/ui/Footer'
 import { VehicleSelector } from '@/components/catalog/VehicleSelector'
 
 export const revalidate = 3600
@@ -26,6 +27,7 @@ export default async function ShopByVehiclePage() {
           </div>
         </div>
       </main>
+      <Footer supportPhone={process.env.NEXT_PUBLIC_SUPPORT_PHONE} />
     </>
   )
 }

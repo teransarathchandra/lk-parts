@@ -22,10 +22,10 @@ export function ProductCard({ product, vehicleName, compact = false }: ProductCa
         isOutOfStock ? 'opacity-60' : ''
       }`}
     >
-      {/* Exact fit "Free Return" corner ribbon */}
+      {/* Exact fit "Free return" corner ribbon */}
       {isExactFit && !isOutOfStock && (
         <div
-          className="absolute right-0 top-0 z-10 rounded-bl-[4px] rounded-tr-[8px] bg-[var(--fit-exact-bg)] px-2 py-0.5 text-[10px] font-semibold text-white"
+          className="absolute right-0 top-0 z-10 rounded-bl-[4px] rounded-tr-[8px] bg-[var(--fit-exact-bg)] px-2 py-0.5 text-[11px] font-semibold text-white"
           aria-hidden="true"
         >
           Free return
@@ -44,17 +44,17 @@ export function ProductCard({ product, vehicleName, compact = false }: ProductCa
               sizes="(max-width: 640px) 50vw, 25vw"
             />
           ) : (
-            <div className="flex h-full items-center justify-center text-[var(--text-secondary)] text-[13px]">
+            <div className="flex h-full items-center justify-center text-[13px] text-[var(--text-secondary)]">
               {product.sub_section}
             </div>
           )}
         </div>
       </Link>
 
-      <div className="p-3">
+      <div className="p-4">
         <Link href={`/parts/${product.slug}`} className="block">
           <h3
-            className="mb-0.5 text-[18px] font-semibold leading-[1.2] text-[var(--text-primary)] hover:text-[var(--accent)]"
+            className="mb-0.5 line-clamp-2 text-[18px] font-semibold leading-[1.2] text-[var(--text-primary)] hover:text-[var(--accent)]"
             style={{ letterSpacing: '-0.01em' }}
           >
             {product.name}
@@ -65,6 +65,14 @@ export function ProductCard({ product, vehicleName, compact = false }: ProductCa
             </p>
           )}
         </Link>
+
+        {/* Fitment badge — above price */}
+        <div className="mb-2">
+          <FitmentBadge
+            fitmentType={product.fitment_type ?? 'unknown'}
+            vehicleName={vehicleName}
+          />
+        </div>
 
         {/* Price */}
         <div className="mb-2 flex items-baseline gap-2">
@@ -79,14 +87,6 @@ export function ProductCard({ product, vehicleName, compact = false }: ProductCa
               LKR {product.compare_at_price.toLocaleString()}
             </span>
           )}
-        </div>
-
-        {/* Fitment badge */}
-        <div className="mb-2">
-          <FitmentBadge
-            fitmentType={product.fitment_type ?? 'unknown'}
-            vehicleName={vehicleName}
-          />
         </div>
 
         {/* Stock */}

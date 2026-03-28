@@ -4,10 +4,9 @@ import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { isValidPhone, normalizePhone } from '@/lib/utils/phone'
 import type { ShippingAddress } from '@/types'
+import { CheckoutSteps } from './CheckoutSteps'
 
 type Step = 1 | 2 | 3
-
-const STEPS = ['Your details', 'Verify', 'Review + Pay']
 
 export function CheckoutFlow() {
   const router = useRouter()
@@ -138,31 +137,7 @@ export function CheckoutFlow() {
 
   return (
     <div>
-      {/* Progress indicator */}
-      <div className="mb-6 flex items-center justify-center gap-2">
-        {STEPS.map((s, i) => (
-          <div key={s} className="flex items-center">
-            <div
-              className={`flex h-6 w-6 items-center justify-center rounded-full text-[11px] font-semibold ${
-                step > i + 1
-                  ? 'bg-[var(--fit-exact-bg)] text-white'
-                  : step === i + 1
-                  ? 'bg-[var(--accent)] text-white'
-                  : 'bg-[var(--border)] text-[var(--text-secondary)]'
-              }`}
-            >
-              {step > i + 1 ? '✓' : i + 1}
-            </div>
-            {i < STEPS.length - 1 && (
-              <div
-                className={`mx-1 h-px w-8 ${
-                  step > i + 1 ? 'bg-[var(--fit-exact-bg)]' : 'bg-[var(--border)]'
-                }`}
-              />
-            )}
-          </div>
-        ))}
-      </div>
+      <CheckoutSteps currentStep={step} />
 
       <h1
         className="mb-6 text-center text-[20px] font-semibold text-[var(--text-primary)]"
@@ -256,7 +231,7 @@ export function CheckoutFlow() {
           <button
             type="submit"
             disabled={otpSending}
-            className="min-h-[44px] w-full rounded-[4px] bg-[var(--accent)] px-4 py-3 text-[15px] font-medium text-white hover:bg-[#aa1b00] disabled:opacity-50"
+            className="min-h-[44px] w-full rounded-[4px] bg-[var(--accent)] px-4 py-3 text-[15px] font-medium text-white hover:bg-[var(--accent-hover)] disabled:opacity-50"
           >
             {otpSending ? 'Sending...' : 'Continue →'}
           </button>
@@ -304,7 +279,7 @@ export function CheckoutFlow() {
           <button
             type="submit"
             disabled={otpVerifying}
-            className="min-h-[44px] w-full rounded-[4px] bg-[var(--accent)] px-4 py-3 text-[15px] font-medium text-white hover:bg-[#aa1b00] disabled:opacity-50"
+            className="min-h-[44px] w-full rounded-[4px] bg-[var(--accent)] px-4 py-3 text-[15px] font-medium text-white hover:bg-[var(--accent-hover)] disabled:opacity-50"
           >
             {otpVerifying ? 'Verifying...' : 'Continue →'}
           </button>
@@ -375,7 +350,7 @@ export function CheckoutFlow() {
           <button
             type="submit"
             disabled={placing}
-            className="min-h-[44px] w-full rounded-[4px] bg-[var(--accent)] px-4 py-3 text-[15px] font-semibold text-white hover:bg-[#aa1b00] disabled:opacity-50"
+            className="min-h-[44px] w-full rounded-[4px] bg-[var(--accent)] px-4 py-3 text-[15px] font-semibold text-white hover:bg-[var(--accent-hover)] disabled:opacity-50"
           >
             {placing
               ? paymentMethod === 'koko'
