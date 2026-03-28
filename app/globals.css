@@ -81,3 +81,77 @@ h1, h2, h3, h4, h5, h6 {
 .scrollbar-none::-webkit-scrollbar {
   display: none;
 }
+
+/* ── Smooth scroll ─────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ── Typography balance ────────────────────────────────────── */
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+/* ── Focus rings ───────────────────────────────────────────── */
+* {
+  outline: none;
+}
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ── Utility: .btn-primary ─────────────────────────────────── */
+.btn-primary {
+  min-height: 44px;
+  background: var(--accent);
+  color: white;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  transition: background 150ms ease;
+  cursor: pointer;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Utility: .card ────────────────────────────────────────── */
+.card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+/* ── Utility: .input-field ─────────────────────────────────── */
+.input-field {
+  min-height: 44px;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 0.5rem 0.75rem;
+  font-size: 15px;
+  transition: border-color 150ms ease;
+  outline: none;
+  background: white;
+  color: var(--text-primary);
+}
+.input-field:focus {
+  border-color: var(--accent);
+}
+
+/* ── Transition-colors for interactive elements ────────────── */
+a, button, [role="button"] {
+  transition-property: color, background-color, border-color, opacity;
+  transition-duration: 150ms;
+  transition-timing-function: ease;
+}

@@ -23,24 +23,39 @@ export default async function HomePage() {
       <Navbar />
       <main id="main-content" className="flex-1">
         {/* Hero */}
-        <section className="bg-[#111111] px-4 py-10 text-white">
+        <section className="bg-[#111111] px-4 py-12 text-white sm:py-16">
           <div className="mx-auto max-w-2xl text-center">
+            <div className="mx-auto mb-5 h-0.5 w-12 bg-[var(--accent)]" />
             <h1
-              className="mb-3 text-[32px] font-bold leading-tight text-white sm:text-[40px]"
+              className="mb-3 text-[34px] font-extrabold leading-tight text-white sm:text-[44px]"
               style={{ letterSpacing: '-0.02em' }}
             >
               Find parts that fit your exact vehicle.
             </h1>
-            <p className="mb-8 text-[14px] text-white/70">
-              ✓ Fitment-checked parts available&nbsp;&nbsp;·&nbsp;&nbsp;✓ Sri Lanka delivery&nbsp;&nbsp;·&nbsp;&nbsp;✓ Free returns on exact fit
-            </p>
+            <div className="mb-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[13px] text-white/70">
+              <span className="flex items-center gap-1.5">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Fitment-checked parts
+              </span>
+              <span className="text-white/30">·</span>
+              <span className="flex items-center gap-1.5">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                Fast Sri Lanka delivery
+              </span>
+              <span className="text-white/30">·</span>
+              <span className="flex items-center gap-1.5">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Free returns on exact fit
+              </span>
+            </div>
 
             {/* Vehicle selector card */}
             <div
-              className="rounded-[8px] border-l-4 bg-white p-5 text-left"
+              className="overflow-hidden rounded-[8px] border-l-4 bg-white p-5 text-left shadow-lg shadow-black/20"
               style={{ borderLeftColor: 'var(--accent)' }}
             >
-              <p className="mb-4 text-[15px] font-semibold text-[var(--text-primary)]">
+              <p className="mb-4 flex items-center gap-2 text-[15px] font-semibold text-[var(--text-primary)]">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 17H3a2 2 0 01-2-2V9a2 2 0 012-2h1l2-4h10l2 4h1a2 2 0 012 2v6a2 2 0 01-2 2h-2M5 17a2 2 0 004 0M15 17a2 2 0 004 0"/></svg>
                 Find parts for your vehicle
               </p>
               <VehicleSelector vehicles={vehicles} showCta />
@@ -51,22 +66,32 @@ export default async function HomePage() {
         <div className="mx-auto max-w-2xl px-4 py-8">
 
           {/* Search fallback */}
-          <section className="mb-8 text-center">
-            <p className="mb-2 text-[13px] text-[var(--text-secondary)]">
-              Or search by part number
-            </p>
+          <section className="mb-8">
+            <div className="my-8 flex items-center gap-3">
+              <div className="flex-1 border-t border-[var(--border)]" />
+              <span className="text-[12px] font-medium uppercase tracking-wider text-[var(--text-secondary)]">or</span>
+              <div className="flex-1 border-t border-[var(--border)]" />
+            </div>
             <form action="/search" method="GET">
               <div className="flex gap-2">
-                <input
-                  name="q"
-                  type="search"
-                  placeholder="e.g. 15400-PLM-A02 or oil filter"
-                  className="min-h-[48px] flex-1 rounded-[2px] border border-[var(--text-secondary)] px-3 py-2 text-[15px] focus:border-[var(--accent)] focus:outline-none"
-                  aria-label="Search by part name or number"
-                />
+                <div className="relative flex-1">
+                  <svg
+                    className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-secondary)]"
+                    width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+                  >
+                    <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+                  </svg>
+                  <input
+                    name="q"
+                    type="search"
+                    placeholder="e.g. 15400-PLM-A02 or oil filter"
+                    className="min-h-[48px] w-full rounded-[2px] border border-[#CCCCCC] pl-10 pr-3 py-2 text-[15px] focus:border-[var(--accent)] focus:outline-none"
+                    aria-label="Search by part name or number"
+                  />
+                </div>
                 <button
                   type="submit"
-                  className="min-h-[48px] rounded-[4px] bg-[var(--accent)] px-5 text-[15px] font-medium text-white hover:bg-[var(--accent-hover)]"
+                  className="min-h-[48px] rounded-[4px] bg-[var(--accent)] px-5 text-[15px] font-semibold text-white hover:bg-[var(--accent-hover)]"
                 >
                   Search
                 </button>
@@ -80,16 +105,17 @@ export default async function HomePage() {
               id="popular-heading"
               className="mb-3 text-[15px] font-semibold text-[var(--text-primary)]"
             >
-              Popular vehicles
+              Browse popular vehicles
             </h2>
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
               {POPULAR_VEHICLES.map((v) => (
                 <Link
                   key={v.slug}
                   href={`/parts/${v.slug}`}
-                  className="flex min-h-[44px] items-center justify-center rounded-[4px] border border-[var(--border)] bg-[var(--bg-subtle)] px-3 py-2 text-center text-[13px] font-medium text-[var(--text-primary)] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]"
+                  className="flex min-h-[44px] items-center justify-between rounded-[4px] border border-[var(--border)] bg-[var(--bg-subtle)] px-3 py-2.5 text-[13px] font-medium text-[var(--text-primary)] transition-colors hover:border-[var(--accent)] hover:bg-[var(--accent-light)] hover:text-[var(--accent)]"
                 >
                   {v.label}
+                  <span className="ml-2 text-[11px] text-[var(--text-secondary)]">→</span>
                 </Link>
               ))}
             </div>
