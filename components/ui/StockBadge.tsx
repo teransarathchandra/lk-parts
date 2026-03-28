@@ -6,7 +6,8 @@ interface StockBadgeProps {
 export function StockBadge({ quantity, lowStockThreshold = 5 }: StockBadgeProps) {
   if (quantity === 0) {
     return (
-      <span className="rounded-[4px] bg-gray-100 px-2 py-0.5 text-[12px] text-gray-500">
+      <span className="inline-flex items-center gap-1.5 text-[12px] text-gray-500">
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-gray-400" aria-hidden="true" />
         Out of stock
       </span>
     )
@@ -14,7 +15,11 @@ export function StockBadge({ quantity, lowStockThreshold = 5 }: StockBadgeProps)
 
   if (quantity <= lowStockThreshold) {
     return (
-      <span className="rounded-[4px] bg-amber-100 px-2 py-0.5 text-[12px] text-amber-700">
+      <span className="inline-flex items-center gap-1.5 text-[12px] text-amber-700">
+        <span className="relative inline-flex" aria-hidden="true">
+          <span className="animate-ping absolute inline-flex h-1.5 w-1.5 rounded-full bg-amber-500 opacity-75" />
+          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-amber-500" />
+        </span>
         Low Stock ({quantity})
       </span>
     )
@@ -22,9 +27,13 @@ export function StockBadge({ quantity, lowStockThreshold = 5 }: StockBadgeProps)
 
   return (
     <span
-      className="inline-block rounded-[4px] bg-emerald-50 px-2 py-0.5 text-[12px] font-medium"
+      className="inline-flex items-center gap-1.5 text-[12px] font-medium"
       style={{ color: 'var(--stock-in-color)' }}
     >
+      <span
+        className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--stock-in-color)]"
+        aria-hidden="true"
+      />
       In Stock ({quantity})
     </span>
   )

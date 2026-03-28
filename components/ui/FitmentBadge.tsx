@@ -19,7 +19,7 @@ export function FitmentBadge({
     return (
       <div className={className}>
         <span
-          className="inline-flex items-center gap-1 rounded-[4px] px-2 py-1 text-[13px] font-semibold text-white"
+          className="inline-flex items-center gap-1 rounded-full px-2 py-1 text-[13px] font-semibold text-white"
           style={{ backgroundColor: 'var(--fit-exact-bg)' }}
           aria-label={
             vehicleName
@@ -27,10 +27,13 @@ export function FitmentBadge({
               : 'Exact fit confirmed'
           }
         >
-          ✓ {vehicleName ? `Fits your ${vehicleName}` : 'Exact Fit'}
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <path d="M2 6l3 3 5-5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          {vehicleName ? `Fits your ${vehicleName}` : 'Exact Fit'}
         </span>
         {showGuarantee && (
-          <p className="mt-2 rounded-[4px] border border-[var(--fit-exact-bg)] bg-emerald-50 px-3 py-2 text-[13px] text-[var(--fit-exact-bg)]">
+          <p className="mt-2 border-l-4 border-[var(--fit-exact-bg)] bg-emerald-50 py-2.5 pl-4 pr-3 text-[13px] text-[var(--fit-exact-bg)]">
             🛡 Wrong part? Free return within 7 days — guaranteed.
           </p>
         )}
@@ -41,10 +44,15 @@ export function FitmentBadge({
   if (fitmentType === 'compatible') {
     return (
       <span
-        className={`inline-flex items-center gap-1 rounded-[4px] px-2 py-1 text-[13px] font-semibold text-white ${className}`}
+        className={`inline-flex items-center gap-1 rounded-full px-2 py-1 text-[13px] font-semibold text-white ${className}`}
         style={{ backgroundColor: 'var(--fit-compat-bg)' }}
       >
-        ⚠ {vehicleName ? `May fit your ${vehicleName}` : 'Compatible'}
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+          <path d="M6 2L11 10H1L6 2z" stroke="white" strokeWidth="1.2" strokeLinejoin="round"/>
+          <path d="M6 5.5v2" stroke="white" strokeWidth="1.2" strokeLinecap="round"/>
+          <circle cx="6" cy="8.5" r="0.5" fill="white"/>
+        </svg>
+        {vehicleName ? `May fit your ${vehicleName}` : 'Compatible'}
       </span>
     )
   }
