@@ -18,7 +18,7 @@ export function ProductCard({ product, vehicleName, compact = false }: ProductCa
 
   return (
     <article
-      className={`relative rounded-[8px] border border-[var(--border)] bg-white transition-shadow hover:shadow-sm ${
+      className={`relative rounded-[8px] border border-[var(--border)] bg-white transition-all duration-150 hover:shadow-md hover:-translate-y-0.5 ${
         isOutOfStock ? 'opacity-60' : ''
       }`}
     >
@@ -34,7 +34,7 @@ export function ProductCard({ product, vehicleName, compact = false }: ProductCa
 
       {/* Product image */}
       <Link href={`/parts/${product.slug}`} className="block">
-        <div className="relative h-36 w-full overflow-hidden rounded-t-[8px] bg-[var(--bg-subtle)]">
+        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-t-[8px] bg-[var(--bg-subtle)]">
           {images.length > 0 ? (
             <Image
               src={images[0]}
@@ -44,8 +44,24 @@ export function ProductCard({ product, vehicleName, compact = false }: ProductCa
               sizes="(max-width: 640px) 50vw, 25vw"
             />
           ) : (
-            <div className="flex h-full items-center justify-center text-[13px] text-[var(--text-secondary)]">
-              {product.sub_section}
+            <div className="flex h-full flex-col items-center justify-center gap-2 text-[13px] text-[var(--text-secondary)]">
+              <svg
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-[var(--border)]"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="3" />
+                <path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14" />
+                <path d="M12 2v2M12 20v2M2 12h2M20 12h2" />
+              </svg>
+              <span>{product.sub_section}</span>
             </div>
           )}
         </div>
@@ -61,6 +77,7 @@ export function ProductCard({ product, vehicleName, compact = false }: ProductCa
           </h3>
           {product.oem_part_number && (
             <p className="mb-1 text-[13px] text-[var(--text-secondary)]">
+              <span className="mr-0.5 font-semibold opacity-50">#</span>
               {product.oem_part_number}
             </p>
           )}
@@ -75,16 +92,16 @@ export function ProductCard({ product, vehicleName, compact = false }: ProductCa
         </div>
 
         {/* Price */}
-        <div className="mb-2 flex items-baseline gap-2">
-          <span
-            className="text-[22px] font-bold"
-            style={{ color: 'var(--accent)' }}
-          >
-            LKR {product.price.toLocaleString()}
+        <div className="mb-2 flex items-baseline gap-1.5">
+          <span className="text-[16px] font-semibold" style={{ color: 'var(--accent)' }}>
+            LKR
+          </span>
+          <span className="text-[22px] font-bold" style={{ color: 'var(--accent)' }}>
+            {product.price.toLocaleString()}
           </span>
           {product.compare_at_price && product.compare_at_price > product.price && (
             <span className="text-[14px] text-[var(--text-secondary)] line-through">
-              LKR {product.compare_at_price.toLocaleString()}
+              {product.compare_at_price.toLocaleString()}
             </span>
           )}
         </div>

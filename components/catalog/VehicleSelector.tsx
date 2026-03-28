@@ -92,7 +92,7 @@ export function VehicleSelector({
 
   const labelClass = 'block text-[13px] font-medium text-[var(--text-secondary)] mb-1'
   const selectClass =
-    'w-full min-h-[44px] rounded-[2px] border border-[var(--border)] bg-white px-3 py-2 text-[15px] text-[var(--text-primary)] disabled:text-[var(--text-secondary)] disabled:bg-[var(--bg-subtle)] focus:outline-none focus:border-[var(--accent)]'
+    'w-full min-h-[44px] rounded-[2px] border border-[var(--border)] bg-white px-3 py-2 text-[15px] text-[var(--text-primary)] disabled:text-[var(--text-secondary)] disabled:bg-[var(--bg-subtle)] disabled:cursor-not-allowed focus:outline-none focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)]'
 
   return (
     <div className={`space-y-3 ${className}`}>
@@ -185,9 +185,9 @@ export function VehicleSelector({
         <button
           onClick={handleShowParts}
           disabled={!selectedVehicle}
-          className="min-h-[44px] w-full rounded-[4px] bg-[var(--accent)] px-6 py-3 text-[15px] font-medium text-white transition-colors hover:bg-[var(--accent-hover)] disabled:cursor-not-allowed disabled:opacity-50"
+          className="min-h-[44px] w-full rounded-[4px] bg-[var(--accent)] px-6 py-3 text-[15px] font-semibold text-white transition-colors hover:bg-[var(--accent-hover)] disabled:cursor-not-allowed disabled:opacity-50"
         >
-          Show parts →
+          {selectedVehicle ? `Show parts for ${selectedModel}` : 'Select your vehicle first'}
         </button>
       )}
     </div>
