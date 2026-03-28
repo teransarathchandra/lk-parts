@@ -84,7 +84,7 @@ export class OrderService {
         if (!reserved) {
           // Release previously reserved items
           for (const r of reservations) {
-            await InventoryService.release(r.productId, r.qty).catch(() => {})
+            await InventoryService.release(r.productId, r.qty).catch((e) => console.error('[lk-parts] inventory release failed:', e))
           }
           throw Object.assign(
             new Error(`"${item.product.name}" is out of stock`),
@@ -117,7 +117,7 @@ export class OrderService {
     if (orderError) {
       // Release reservations on order creation failure
       for (const r of reservations) {
-        await InventoryService.release(r.productId, r.qty).catch(() => {})
+        await InventoryService.release(r.productId, r.qty).catch((e) => console.error('[lk-parts] inventory release failed:', e))
       }
       throw new Error(orderError.message)
     }
@@ -132,7 +132,7 @@ export class OrderService {
     if (itemsError) {
       await supabaseAdmin.from('orders').delete().eq('id', order.id)
       for (const r of reservations) {
-        await InventoryService.release(r.productId, r.qty).catch(() => {})
+        await InventoryService.release(r.productId, r.qty).catch((e) => console.error('[lk-parts] inventory release failed:', e))
       }
       throw new Error(itemsError.message)
     }
@@ -164,7 +164,7 @@ export class OrderService {
       } catch {
         // Koko initiation failed — release reserved inventory and mark order failed
         for (const r of reservations) {
-          await InventoryService.release(r.productId, r.qty).catch(() => {})
+          await InventoryService.release(r.productId, r.qty).catch((e) => console.error('[lk-parts] inventory release failed:', e))
         }
         await supabaseAdmin
           .from('orders')
@@ -282,7 +282,7 @@ export class OrderService {
     // Release inventory reservations
     if (order.items) {
       for (const item of order.items) {
-        await InventoryService.release(item.product_id, item.quantity).catch(() => {})
+        await InventoryService.release(item.product_id, item.quantity).catch((e) => console.error('[lk-parts] inventory release failed:', e))
       }
     }
 
