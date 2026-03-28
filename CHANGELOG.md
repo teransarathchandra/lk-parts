@@ -2,6 +2,33 @@
 
 All notable changes to lk-parts will be documented in this file.
 
+## [0.2.0.0] - 2026-03-28
+
+### Added
+- **Phase 1 complete implementation**: DB schema (migrations 001-003), full service layer, API routes, and UI shipped together as the first functional milestone
+- **Fitment-aware catalog**: vehicle cascade selector (type → brand → model → variant), exact/compatible/unknown fitment tagging
+- **Cart**: session-token cart with 48h TTL, live badge updates via `cart:updated` custom event
+- **3-step checkout**: phone OTP (simulated Phase 1), address collection, order review + payment
+- **COD + Koko BNPL payment**: COD flow and Koko BNPL with HMAC webhook verification and idempotent event processing
+- **Order management**: atomic inventory reservation, status tracking, cancellation
+- **Admin panel**: order list + status management, inventory adjustment UI
+- **UI components**: FitmentBadge, StockBadge, AddToCartButton (with icon states), CartIcon, OrderStatusStepper, CheckoutSteps, TrustStrip, Footer, Navbar
+- **Test suite**: 133 tests (Vitest) — service layer 100% coverage, 20 test files covering services, utilities, and 13 UI components
+
+### Changed
+- `AddToCartButton`: "Added ✓" → "Added to cart" with SVG icon; loading spinner on adding state; error ring on failure
+- `StockBadge`: dot-indicator design replacing pill badges
+- `OrderStatusStepper`: cancelled/payment_failed statuses now return null instead of showing raw status text
+- `Footer`: expanded with brand tagline, WhatsApp link via aria-label + icon
+- `CheckoutSteps`: SVG checkmark for completed steps replacing "✓" text
+- `VehicleSelector`: resets downstream selects when type changes
+
+### Fixed
+- **Race condition** in `OrderService.cancel()`: status check now uses atomic `UPDATE ... WHERE status IN (...)` to prevent double-cancel and double inventory release under concurrent requests
+- **IDOR** on `GET /api/orders`: blocked endpoint (501) until Phase 2 Supabase session auth; caller-controlled `x-customer-id` header removed
+- **Deprecated `crypto` npm package** removed from `package.json`; code already uses Node.js built-in `crypto` module directly
+- Inventory release failures logged instead of silently swallowed
+
 ## [0.1.0.1] - 2026-03-28
 
 ### Added

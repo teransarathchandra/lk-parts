@@ -32,4 +32,16 @@
   **What:** Phone OTP in checkout is simulated (advances automatically). Wire up `supabase.auth.verifyOtp` for real SMS verification before going live.
   **File:** `components/checkout/CheckoutFlow.tsx:45`
 
+## Cart / Orders
+
+- **Validate cart item quantities**
+  **Priority:** P1
+  **What:** `POST /api/cart/items` accepts any `quantity` value without validation. Zero or negative quantities create invalid cart rows and corrupt order totals/inventory reservations.
+  **File:** `app/api/cart/items/route.ts:17`
+
+- **Webhook idempotency ordering**
+  **Priority:** P1
+  **What:** Koko webhook `completed` path confirms inventory and updates order BEFORE inserting the idempotent event record. A concurrent retry will see the dedupe check pass and run the inventory mutation again. Insert idempotency record first, then mutate.
+  **File:** `app/api/webhooks/koko/route.ts:53`
+
 ## Completed
